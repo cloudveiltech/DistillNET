@@ -5,17 +5,18 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl>https://www.mozilla.org/en-US/MPL/2.0/</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/TechnikEmpire/DistillNET</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/TechnikEmpire/DistillNET</RepositoryUrl>
-    <Description>DistillNET is a library for matching and filtering HTTP requests URLs using the Adblock Plus Filter format.</Description>
-    <Copyright>Copyright © 2017 Jesse Nicholson</Copyright>
-    <Version>1.4.5</Version>
-    <Authors>Jesse Nicholson</Authors>
-    <Company>Technik Empire</Company>
+    <PackageProjectUrl>https://github.com/cloudveiltech/DistillNET</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/cloudveiltech/DistillNET</RepositoryUrl>
+    <Description>DistillNET is a library for matching and filtering HTTP requests URLs using the Adblock Plus Filter format. Forked from https://github.com/TechnikEmpire/DistillNET</Description>
+    <Copyright>Copyright © 2017 Jesse Nicholson, CloudVeil Technology, Inc.</Copyright>
+    <Version>1.4.6</Version>
+    <Authors>Jesse Nicholson, CloudVeil Technology, Inc.</Authors>
+    <Company>CloudVeil Technology, Inc.</Company>
     <PackageTags>DistillNET Adblock AdblockPlus Adblock-Plus URL-Filter URL-Filtering Content-Filter Filter</PackageTags>
-    <PackageReleaseNotes>Fixes a bug where, when using the FilterDbCollection constructor that takes parameters, if you specified to use an in-memory database, the database was not configured correctly.
-
-Package also now bundles XML documentation.</PackageReleaseNotes>
+    <PackageReleaseNotes>Implements Bloom filters and a new 'PrefetchIsDomainInList' function to help determine whether a domain has any filters in the database. This should help apps speed up their filter searches.</PackageReleaseNotes>
+    <PackageId>CloudVeil.DistillNET</PackageId>
+    <AssemblyVersion>1.4.6.0</AssemblyVersion>
+    <FileVersion>1.4.6.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

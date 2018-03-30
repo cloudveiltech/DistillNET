@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{13CD8FD7-6903-4086-8BFB-504E41F3D12D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistillNET", "DistillNET\DistillNET.csproj", "{693840CA-EAF1-4718-BB1F-E2F9D6646E10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DistillNET", "DistillNET\DistillNET.csproj", "{693840CA-EAF1-4718-BB1F-E2F9D6646E10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistillNETUnitTests", "DistillNETUnitTests\DistillNETUnitTests.csproj", "{BF6A8664-FE6D-4E96-A7CE-5CBB89DAA58B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{693840CA-EAF1-4718-BB1F-E2F9D6646E10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{693840CA-EAF1-4718-BB1F-E2F9D6646E10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{693840CA-EAF1-4718-BB1F-E2F9D6646E10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF6A8664-FE6D-4E96-A7CE-5CBB89DAA58B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF6A8664-FE6D-4E96-A7CE-5CBB89DAA58B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF6A8664-FE6D-4E96-A7CE-5CBB89DAA58B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF6A8664-FE6D-4E96-A7CE-5CBB89DAA58B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

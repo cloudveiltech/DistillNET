@@ -429,6 +429,8 @@ namespace DistillNET
 
             public override int IsMatch(Uri source, int lastPosition)
             {
+                //string absoluteUri = source.AbsoluteUri;
+
                 if(lastPosition > source.AbsoluteUri.Length)
                 {
                     return -1;

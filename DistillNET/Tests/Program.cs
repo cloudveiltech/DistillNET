@@ -117,10 +117,19 @@ namespace DistillNET
 
             // Ensure that we build the index AFTER we're all done our inserts.
             filterCollection.FinalizeForRead();
+            filterCollection.InitializeBloomFilters();
+
             sw.Stop();
 
             Console.WriteLine("Parsed And Stored {0} filters in {1} msec, averaging {2} msec per filter.", adultResult.Item1 + easyListResult.Item1, sw.ElapsedMilliseconds, sw.ElapsedMilliseconds / (double)(adultResult.Item1 + easyListResult.Item1));
-            
+
+            // Test a few bloom filter thingies.
+            TestBloomFilter(filterCollection, "pornhub.com", false);
+            TestBloomFilter(filterCollection, "somebogusdomain.com", false);
+            TestBloomFilter(filterCollection, "somebogusdomain.com", true);
+            TestBloomFilter(filterCollection, "disqus.com", false);
+            TestBloomFilter(filterCollection, "disqus.com", true);
+
             Console.WriteLine();
             Console.WriteLine("Testing Rule Lookup By Domain From DB");            
             int loadedFilters = 0;
@@ -138,6 +147,16 @@ namespace DistillNET
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
+        }
+
+        private static void TestBloomFilter(FilterDbCollection collection, string domain, bool whitelisted)
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            bool result = collection.PrefetchIsDomainInList(domain, whitelisted);
+            sw.Stop();
+
+            long nsPerTick = (1000L * 1000L * 1000L) / Stopwatch.Frequency;
+            Console.WriteLine("Prefetch {0} took {1}ns. result = {2}", domain, sw.ElapsedTicks * nsPerTick, result);
         }
 
         private static void TestFilterMatching()

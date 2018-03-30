@@ -350,6 +350,7 @@ namespace DistillNET
                     // a domain.
 
                     var referersLen = rawReferers.Length;
+
                     for(int i = 0; i < referersLen; ++i)
                     {
                         switch(rawReferers[i][0])

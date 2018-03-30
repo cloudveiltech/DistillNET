@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright © 2017 Jesse Nicholson
+ * Copyright © 2017 Jesse Nicholson and CloudVeil Technology, Inc.
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -40,6 +40,9 @@ namespace DistillNET
         /// The global key used to index non-domain specific filters.
         /// </summary>
         private readonly string m_globalKey;
+
+        private BloomFilter<string> m_whitelistFilter;
+        private BloomFilter<string> m_blacklistFilter;
 
         /// <summary>
         /// Constructs a new FilterDbCollection using an in-memory database.
@@ -289,6 +292,61 @@ namespace DistillNET
         }
 
         /// <summary>
+        /// Call this once you're done loading all your filter rules.
+        /// </summary>
+        public async void InitializeBloomFilters()
+        {
+            int whitelistCount = 0, blacklistCount = 0;
+
+            using (var cmd = m_connection.CreateCommand())
+            {
+                cmd.CommandText = "SELECT COUNT(1) FROM UrlFiltersIndex WHERE IsWhitelist = $isWhitelist";
+                var isWhitelistParam = new SqliteParameter("$isWhitelist", false);
+                cmd.Parameters.Add(isWhitelistParam);
+
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    reader.Read();
+                    blacklistCount = reader.GetInt32(0);
+                }
+
+                cmd.Parameters[0].Value = true;
+
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    reader.Read();
+                    whitelistCount = reader.GetInt32(0);
+                }
+            }
+
+            m_whitelistFilter = new BloomFilter<string>(whitelistCount);
+            m_blacklistFilter = new BloomFilter<string>(blacklistCount);
+
+            using (var cmd = m_connection.CreateCommand())
+            {
+                cmd.CommandText = "SELECT Domains, IsWhitelist FROM UrlFiltersIndex;";
+
+                using (SqliteDataReader reader = await cmd.ExecuteReaderAsync())
+                {
+                    while (reader.Read())
+                    {
+                        string domain = reader.GetString(0);
+                        bool isWhitelist = reader.GetBoolean(1);
+
+                        if (isWhitelist)
+                        {
+                            m_whitelistFilter.Add(domain);
+                        }
+                        else
+                        {
+                            m_blacklistFilter.Add(domain);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Parses the supplied list of rules and stores them in the assigned database for retrieval,
         /// indexed by the rule's domain names.
         /// </summary>
@@ -392,6 +450,34 @@ namespace DistillNET
         public async Task<List<UrlFilter>> GetWhitelistFiltersForDomain(string domain = "global")
         {
             return await GetFiltersForDomain(domain, true);
+        }
+
+        /// <summary>
+        /// Uses the bloom filters to determine whether we need to check GetFiltersForDomain().
+        /// If this function returns true, we'll need to call GetFiltersForDomain and run CheckIfFiltersApply.
+        /// If this function returns false, we can safely assume that the return for GetFiltersForDomain would be an empty array.
+        /// </summary>
+        /// <param name="domain"></param>
+        /// <param name="isWhitelist"></param>
+        /// <returns>true if domain most likely has applicable filters, false if it definitely does not.</returns>
+        public bool PrefetchIsDomainInList(string domain, bool isWhitelist)
+        {
+            if(domain == null || m_whitelistFilter == null || m_blacklistFilter == null)
+            {
+                return true;
+            }
+
+            if(isWhitelist && m_whitelistFilter.Contains(domain))
+            {
+                return true;
+            }
+
+            if(!isWhitelist && m_blacklistFilter.Contains(domain))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
