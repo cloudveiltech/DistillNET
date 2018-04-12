@@ -9,13 +9,13 @@
     <RepositoryUrl>https://github.com/cloudveiltech/DistillNET</RepositoryUrl>
     <Description>DistillNET is a library for matching and filtering HTTP requests URLs using the Adblock Plus Filter format. Forked from https://github.com/TechnikEmpire/DistillNET</Description>
     <Copyright>Copyright © 2017 Jesse Nicholson, CloudVeil Technology, Inc.</Copyright>
-    <Version>1.4.6</Version>
+    <Version>1.4.8</Version>
     <Authors>Jesse Nicholson, CloudVeil Technology, Inc.</Authors>
     <Company>CloudVeil Technology, Inc.</Company>
     <PackageTags>DistillNET Adblock AdblockPlus Adblock-Plus URL-Filter URL-Filtering Content-Filter Filter</PackageTags>
-    <PackageReleaseNotes>Implements Bloom filters and a new 'PrefetchIsDomainInList' function to help determine whether a domain has any filters in the database. This should help apps speed up their filter searches.</PackageReleaseNotes>
+    <PackageReleaseNotes>Fixes bloom filter case where whitelist count or blacklist count is 0.</PackageReleaseNotes>
     <PackageId>CloudVeil.DistillNET</PackageId>
-    <AssemblyVersion>1.4.6.0</AssemblyVersion>
+    <AssemblyVersion>1.4.8.0</AssemblyVersion>
     <FileVersion>1.4.6.0</FileVersion>
   </PropertyGroup>
 

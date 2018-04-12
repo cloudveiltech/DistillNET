@@ -319,8 +319,8 @@ namespace DistillNET
                 }
             }
 
-            m_whitelistFilter = new BloomFilter<string>(whitelistCount);
-            m_blacklistFilter = new BloomFilter<string>(blacklistCount);
+            m_whitelistFilter = new BloomFilter<string>(whitelistCount == 0 ? 100 : whitelistCount);
+            m_blacklistFilter = new BloomFilter<string>(blacklistCount == 0 ? 100 : blacklistCount);
 
             using (var cmd = m_connection.CreateCommand())
             {
