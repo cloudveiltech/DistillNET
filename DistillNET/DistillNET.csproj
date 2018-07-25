@@ -5,11 +5,10 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseUrl>https://www.mozilla.org/en-US/MPL/2.0/</PackageLicenseUrl>
-<<<<<<< HEAD:DistillNET/DistillNET/DistillNET.csproj
     <PackageProjectUrl>https://github.com/cloudveiltech/DistillNET</PackageProjectUrl>
     <RepositoryUrl>https://github.com/cloudveiltech/DistillNET</RepositoryUrl>
     <Description>DistillNET is a library for matching and filtering HTTP requests URLs using the Adblock Plus Filter format. Forked from https://github.com/TechnikEmpire/DistillNET</Description>
-    <Copyright>Copyright © 2017 Jesse Nicholson, CloudVeil Technology, Inc.</Copyright>
+    <Copyright>Copyright © 2017 - 2018 Jesse Nicholson, CloudVeil Technology, Inc.</Copyright>
     <Version>1.4.8</Version>
     <Authors>Jesse Nicholson, CloudVeil Technology, Inc.</Authors>
     <Company>CloudVeil Technology, Inc.</Company>
